@@ -14,14 +14,14 @@ export default function SearchBar() {
   return (
     <form className="search" role="search" onSubmit={onSubmit}>
       <input
-        className="search_input"
+        className="search__input"
         type="search"
         placeholder="Search movies..."
         aria-label="Search movies"
         value={q}
         onChange={(e) => setQ(e.target.value)}
       />
-      <button className="search_button" type="submit" disabled={!q.trim()}>
+      <button className="search__button" type="submit" disabled={!q.trim()}>
         Search
       </button>
     </form>
