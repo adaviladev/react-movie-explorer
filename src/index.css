@@ -15,3 +15,35 @@
   font-size: 1.25rem;
   font-weight: 600;
 }
+
+/* --- Search bar (temporary styles; we’ll refine later) --- */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.search__input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #111827; /* dark background to match header */
+  color: #f9fafb;
+  outline: none;
+}
+.search__input::placeholder {
+  color: #9ca3af;
+}
+.search__button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 999px;
+  background: #2563eb; /* primary */
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+.search__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
