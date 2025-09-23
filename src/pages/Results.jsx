@@ -17,7 +17,7 @@ export default function Results() {
   const filtered = mockMovies.filter((m) => m.title.toLowerCase().includes(q));
 
   return (
-    <main>
+    <main className="container">
       <h2>Results for "{params.get("q") || ""}"</h2>
       {/* Grid will go here later */}
       <div className="results-grid">
