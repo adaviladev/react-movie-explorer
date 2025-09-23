@@ -1,13 +1,10 @@
-/* TODO: refine header colors and spacing */
-
+/* Header (title left, search centered) */
 .header {
-  /* layout */
   display: grid;
   grid-template-columns: 1fr minmax(280px, 640px) 1fr;
   align-items: center;
   gap: 12px;
 
-  /* visuals (keep your colors if different) */
   padding: 12px 16px;
   border-bottom: 1px solid #e5e7eb;
   background-color: #111827;
@@ -21,45 +18,39 @@
   font-weight: 600;
 }
 
-/* place the search form in the center column and let it expand */
-.header .search {
-  grid-column: 2;
-  width: 100%;
-}
-
-/* --- Search bar (temporary styles; we’ll refine later) --- */
+/* Search bar */
 .search {
+  grid-column: 2;       /* center column in the header grid */
+  width: 100%;
+
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 .search__input {
   flex: 1;
   padding: 8px 10px;
   border: 1px solid #e5e7eb;
   border-radius: 999px;
-  background: #111827; /* dark background to match header */
+  background: #111827;
   color: #f9fafb;
   outline: none;
 }
-.search__input::placeholder {
-  color: #9ca3af;
-}
+.search__input::placeholder { color: #9ca3af; }
+
 .search__button {
   padding: 8px 14px;
   border: none;
   border-radius: 999px;
-  background: #2563eb; /* primary */
+  background: #2563eb;
   color: white;
   font-weight: 600;
   cursor: pointer;
 }
-.search__button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+.search__button:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* minimal results grid */
+/* Results grid */
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -67,18 +58,13 @@
   margin-top: 12px;
 }
 
-.results-card {
-  height: 210px; /* placeholder box */
-  border-radius: 10px;
-  background: #1f2937; /* dark grey */
-  border: 1px solid #374151; /* subtle border */
-}
-
+/* Movie card */
 .card {
   background: #1f2937;
   border: 1px solid #374151;
   border-radius: 10px;
   overflow: hidden;
+  display: block;        /* make the Link fill the card area */
 }
 
 .card__poster {
@@ -102,3 +88,4 @@
   font-size: 0.82rem;
   color: #9ca3af;
 }
+
