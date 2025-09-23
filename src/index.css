@@ -20,7 +20,7 @@
 
 /* Search bar */
 .search {
-  grid-column: 2;       /* center column in the header grid */
+  grid-column: 2; /* center column in the header grid */
   width: 100%;
 
   display: flex;
@@ -37,7 +37,9 @@
   color: #f9fafb;
   outline: none;
 }
-.search__input::placeholder { color: #9ca3af; }
+.search__input::placeholder {
+  color: #9ca3af;
+}
 
 .search__button {
   padding: 8px 14px;
@@ -48,7 +50,10 @@
   font-weight: 600;
   cursor: pointer;
 }
-.search__button:disabled { opacity: 0.6; cursor: not-allowed; }
+.search__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 /* Results grid */
 .results-grid {
@@ -64,7 +69,7 @@
   border: 1px solid #374151;
   border-radius: 10px;
   overflow: hidden;
-  display: block;        /* make the Link fill the card area */
+  display: block; /* make the Link fill the card area */
 }
 
 .card__poster {
@@ -89,3 +94,47 @@
   color: #9ca3af;
 }
 
+/* Page container: keeps content narrow and centered */
+.container {
+  max-width: 1180px; /* 1) limit line length on big screens */
+  margin: 0 auto; /* 2) center horizontally */
+  padding: 16px; /* 3) breathing room on all sides */
+}
+
+/* Details layout */
+.details {
+  display: grid; /* 4) grid for poster + text */
+  grid-template-columns: 220px 1fr; /* 5) left = poster, right = info */
+  gap: 16px; /* 6) space between columns */
+  align-items: start; /* 7) top-align content */
+  margin-top: 16px; /* 8) space from heading */
+}
+
+@media (max-width: 640px) {
+  .details {
+    grid-template-columns: 1fr;
+  } /* 9) stack on small screens */
+}
+
+.details__poster {
+  aspect-ratio: 2 / 3; /* 10) poster proportion */
+  background: linear-gradient(180deg, #2a3647, #1f2937); /* 11) placeholder */
+  border-radius: 12px; /* 12) rounded corners */
+}
+
+.details__title {
+  margin: 0 0 6px; /* 13) remove huge default H1 margin */
+  font-size: 1.5rem; /* 14) reasonable title size */
+  font-weight: 700; /* 15) bold */
+  line-height: 1.2; /* 16) tighter lines */
+}
+
+.details__meta {
+  margin: 0 0 12px; /* 17) space below meta row */
+  color: #555; /* 18) softer gray */
+}
+
+.details__overview {
+  margin: 0; /* 19) reset margin */
+  max-width: 70ch; /* 20) readable line length for text */
+}
