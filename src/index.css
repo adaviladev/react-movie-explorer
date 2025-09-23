@@ -58,3 +58,18 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* minimal results grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.results-card {
+  height: 210px; /* placeholder box */
+  border-radius: 10px;
+  background: #1f2937; /* dark grey */
+  border: 1px solid #374151; /* subtle border */
+}
