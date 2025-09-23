@@ -102,3 +102,35 @@
   font-size: 0.82rem;
   color: #9ca3af;
 }
+
+/* --- Details page (temporary styles; refine later) --- */
+.details {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+@media (max-width: 640px) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+}
+.details__poster {
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(180deg, #2a3647, #1f2937);
+  border-radius: 10px;
+}
+.details__title {
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f9fafb;
+}
+.details__meta {
+  margin: 0 0 8px;
+  color: #9ca3af;
+}
+.details__overview {
+  margin: 0;
+  line-height: 1.6;
+}

@@ -1,6 +1,13 @@
+import { Link } from "react-router-dom";
+
 export default function MovieCard({ movie }) {
   return (
-    <div className="card" role="article" aria-label="{movie.title}">
+    <Link
+      to={`/movie/${movie.id}`}
+      className="card"
+      role="article"
+      aria-label="{movie.title}"
+    >
       <div className="card__poster" aria-hidden="true" />
       <div className="card__body">
         <p className="card__title">{movie.title}</p>
@@ -8,6 +15,6 @@ export default function MovieCard({ movie }) {
           {movie.year} • ⭐ {movie.rating}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
