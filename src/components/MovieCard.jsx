@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function MovieCard({ movie }) {
   return (
@@ -6,7 +6,7 @@ export default function MovieCard({ movie }) {
       to={`/movie/${movie.id}`}
       className="card"
       role="article"
-      aria-label="{movie.title}"
+      aria-label={movie.title}
     >
       <div className="card__poster" aria-hidden="true" />
       <div className="card__body">
