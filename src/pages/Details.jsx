@@ -25,7 +25,7 @@ export default function Details() {
   }
 
   return (
-    <main>
+    <main className="container">
       <div className="details">
         <div className="details__poster" aria-hidden="true" />
         <div>
