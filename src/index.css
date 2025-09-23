@@ -73,3 +73,32 @@
   background: #1f2937; /* dark grey */
   border: 1px solid #374151; /* subtle border */
 }
+
+.card {
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card__poster {
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(180deg, #2a3647, #1f2937);
+}
+
+.card__body {
+  padding: 8px 10px;
+}
+
+.card__title {
+  margin: 0 0 2px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #f9fafb;
+}
+
+.card__meta {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #9ca3af;
+}
