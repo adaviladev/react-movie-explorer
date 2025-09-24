@@ -73,8 +73,11 @@
 }
 
 .card__poster {
+  width: 100%;
   aspect-ratio: 2 / 3;
-  background: linear-gradient(180deg, #2a3647, #1f2937);
+  object-fit: cover; /* make the image cover the box */
+  background: linear-gradient(180deg, #2a3647, #1f2937); /* fallback for DIV */
+  display: block;
 }
 
 .card__body {
