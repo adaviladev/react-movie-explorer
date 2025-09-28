@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getMovie, posterUrl } from "../api/tmdb";
 import ErrorState from "../components/ErrorState";
+import SkeletonDetails from "../components/SkeletonDetails";
 
 function formatRuntime(min) {
   if (!min && min !== 0) return "—";
@@ -49,7 +50,7 @@ export default function Details() {
   if (status === "loading") {
     return (
       <main className="container">
-        <p>Loading…</p>
+        <SkeletonDetails />
       </main>
     );
   }
