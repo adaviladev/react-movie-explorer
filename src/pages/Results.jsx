@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import { searchMovies } from "../api/tmdb";
 import ErrorState from "../components/ErrorState";
+import SkeletonCard from "../components/SkeletonCard";
 
 export default function Results() {
   const [params] = useSearchParams();
@@ -58,7 +59,13 @@ export default function Results() {
       <h2>Results for “{raw}”</h2>
 
       {status === "idle" && <p>Type something in the search box.</p>}
-      {status === "loading" && <p>Loading…</p>}
+      {status === "loading" && (
+        <div className="results-grid" aria-busy="true">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      )}
 
       {status === "error" && (
         <ErrorState
