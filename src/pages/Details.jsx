@@ -1,54 +1,7 @@
-/* import { useParams, Link } from "react-router-dom";
-
-const mockMovies = [
-  { id: 1, title: "Inception", year: 2010, rating: 8.8 },
-  { id: 2, title: "Interstellar", year: 2014, rating: 8.6 },
-  { id: 3, title: "The Dark Knight", year: 2008, rating: 9.0 },
-  { id: 4, title: "The Matrix", year: 1999, rating: 8.7 },
-  { id: 5, title: "Dune", year: 2021, rating: 8.1 },
-  { id: 6, title: "Arrival", year: 2016, rating: 7.9 },
-];
-
-export default function Details() {
-  const { id } = useParams();
-  const movie = mockMovies.find((m) => String(m.id) === id);
-
-  if (!movie) {
-    return (
-      <main>
-        <p>Movie not found</p>
-        <p>
-          <Link to="/">← Back to Home</Link>
-        </p>
-      </main>
-    );
-  }
-
-  return (
-    <main className="container">
-      <div className="details">
-        <div className="details__poster" aria-hidden="true" />
-        <div>
-          <h1 className="details__title">
-            {movie.title} ({movie.year})
-          </h1>
-          <p className="details__meta">⭐ {movie.rating} • Genres • Runtime</p>
-          <p className="details__overview">
-            Overview placeholder. This will be replaced with TMDB data.
-          </p>
-          <p>
-            <Link to="/">← Back</Link>
-          </p>
-        </div>
-      </div>
-    </main>
-  );
-}
- */
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getMovie, posterURL } from "../api/tmdb";
+import { getMovie, posterUrl } from "../api/tmdb";
+import ErrorState from "../components/ErrorState";
 
 function formatRuntime(min) {
   if (!min && min !== 0) return "—";
@@ -60,13 +13,18 @@ function formatRuntime(min) {
 export default function Details() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const [status, setStatus] = useState("loading");
+  const [status, setStatus] = useState("loading"); // loading | success | error
   const [error, setError] = useState(null);
+  const [aborter, setAborter] = useState(null);
 
-  useEffect(() => {
+  const load = useCallback(() => {
+    if (aborter) aborter.abort();
     const ac = new AbortController();
+    setAborter(ac);
+
     setStatus("loading");
     setError(null);
+
     getMovie(id)
       .then((data) => {
         if (!ac.signal.aborted) {
@@ -80,21 +38,40 @@ export default function Details() {
           setStatus("error");
         }
       });
-    return () => ac.abort();
+  }, [id, aborter]);
+
+  useEffect(() => {
+    load();
+    return () => aborter?.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (status === "loading") {
     return (
       <main className="container">
-        <p>Loading...</p>
+        <p>Loading…</p>
       </main>
     );
   }
 
-  if (status === "error" || !movie) {
+  if (status === "error") {
     return (
       <main className="container">
-        <p role="alert">Could not load movie. {error ?? ""}</p>
+        <ErrorState
+          message={`Could not load movie. ${error || ""}`}
+          onRetry={load}
+        />
+        <p style={{ marginTop: 12 }}>
+          <Link to="/">← Back</Link>
+        </p>
+      </main>
+    );
+  }
+
+  if (!movie) {
+    return (
+      <main className="container">
+        <p>Movie not found.</p>
         <p>
           <Link to="/">← Back</Link>
         </p>
@@ -102,7 +79,7 @@ export default function Details() {
     );
   }
 
-  const poster = posterURL(movie.posterPath);
+  const poster = posterUrl(movie.posterPath);
 
   return (
     <main className="container">

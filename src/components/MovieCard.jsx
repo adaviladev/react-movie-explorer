@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { posterURL } from "../api/tmdb";
+import { posterUrl } from "../api/tmdb";
 
 export default function MovieCard({ movie }) {
-  const src = posterURL(movie.posterPath);
+  const src = posterUrl(movie.posterPath);
 
   return (
     <Link
