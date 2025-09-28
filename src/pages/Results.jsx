@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+/* import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import { searchMovies } from "../api/tmdb";
@@ -79,6 +79,63 @@ export default function Results() {
       {status === "success" && movies.length > 0 && (
         <div className="results-grid">
           {movies.map((m) => (
+            <MovieCard key={m.id} movie={m} />
+          ))}
+        </div>
+      )}
+    </main>
+  );
+}
+ */
+
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMoviesByQuery } from "../features/movies/moviesSlice";
+import MovieCard from "../components/MovieCard";
+import SkeletonCard from "../components/SkeletonCard";
+import ErrorState from "../components/ErrorState";
+
+export default function Results() {
+  const [params] = useSearchParams();
+  const raw = params.get("q") || "";
+  const q = raw.trim();
+
+  const dispatch = useDispatch();
+  const { items, status, error } = useSelector((s) => s.movies.search);
+
+  useEffect(() => {
+    if (!q) return;
+    // dispara el thunk (RTK maneja loading/success/error)
+    dispatch(fetchMoviesByQuery(q));
+  }, [q, dispatch]);
+
+  return (
+    <main className="container">
+      <h2>Results for “{raw}”</h2>
+
+      {!q && <p>Type something in the search box.</p>}
+
+      {status === "loading" && (
+        <div className="results-grid" aria-busy="true">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      )}
+
+      {status === "error" && (
+        <ErrorState
+          message={`Could not load results. ${error || ""}`}
+          onRetry={() => dispatch(fetchMoviesByQuery(q))}
+        />
+      )}
+
+      {status === "success" && items.length === 0 && <p>No results found.</p>}
+
+      {status === "success" && items.length > 0 && (
+        <div className="results-grid">
+          {items.map((m) => (
             <MovieCard key={m.id} movie={m} />
           ))}
         </div>
